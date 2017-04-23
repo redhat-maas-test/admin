@@ -16,6 +16,7 @@
 
 package enmasse.controller.common;
 
+import enmasse.controller.api.v3.Instance;
 import enmasse.controller.model.Destination;
 import enmasse.controller.model.InstanceId;
 import enmasse.controller.address.DestinationCluster;
@@ -25,6 +26,8 @@ import enmasse.config.LabelKeys;
 import io.fabric8.kubernetes.api.model.*;
 import io.fabric8.kubernetes.api.model.extensions.Ingress;
 import io.fabric8.kubernetes.client.KubernetesClientException;
+import io.fabric8.kubernetes.client.Watch;
+import io.fabric8.kubernetes.client.Watcher;
 import io.fabric8.kubernetes.client.dsl.Resource;
 import io.fabric8.openshift.api.model.DoneablePolicyBinding;
 import io.fabric8.openshift.api.model.PolicyBinding;
@@ -260,5 +263,24 @@ public class OpenShiftHelper implements OpenShift {
     @Override
     public boolean hasService(String service) {
         return client.services().withName(service).get() != null;
+    }
+
+    @Override
+    public Watch watchConfigMaps(String namespace, Map<String, String> labelMap, Watcher<ConfigMap> watcher) {
+        ConfigMapList list = client.configMaps().inNamespace(namespace).withLabels(labelMap).list();
+        for (ConfigMap map : list.getItems()) {
+            watcher.eventReceived(Watcher.Action.ADDED, map);
+        }
+        return client.configMaps().inNamespace(namespace).withLabels(labelMap).withResourceVersion(list.getMetadata().getResourceVersion()).watch(watcher);
+    }
+
+    @Override
+    public void createInstance(Instance instance) {
+        ConfigMap map = client.configMaps().createOrReplaceWithNew()
+                .editOrNewMetadata()
+                    .withName("instance-" + instance.getInstance().id().getId())
+                .endMetadata()
+                .withData(Collections.)
+                .gtkA
     }
 }

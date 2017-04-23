@@ -1,12 +1,17 @@
 package enmasse.controller.common;
 
+import enmasse.controller.api.v3.Instance;
+import enmasse.controller.instance.InstanceController;
 import enmasse.controller.model.Destination;
 import enmasse.controller.model.InstanceId;
 import enmasse.controller.address.DestinationCluster;
 import io.fabric8.kubernetes.api.model.ConfigMap;
+import io.fabric8.kubernetes.api.model.ConfigMapList;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.KubernetesList;
 import io.fabric8.kubernetes.api.model.Namespace;
+import io.fabric8.kubernetes.client.Watch;
+import io.fabric8.kubernetes.client.Watcher;
 import io.fabric8.openshift.client.ParameterValue;
 
 import java.util.List;
@@ -49,4 +54,7 @@ public interface OpenShift {
     List<Route> getRoutes(InstanceId instanceId);
 
     boolean hasService(String service);
+
+    Watch watchConfigMaps(String namespace, Map<String, String> labelMap, Watcher<ConfigMap> watcher);
+    void createInstance(Instance instance);
 }
