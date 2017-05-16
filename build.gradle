@@ -11,6 +11,7 @@ ext {
     openshiftClientVersion = '2.3.1'
     resteasyVersion = '3.1.0.Final'
     artemisVersion = '2.0.0'
+    acme4jVersion = '0.10'
 }
 
 subprojects {

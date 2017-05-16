@@ -33,8 +33,9 @@ public final class ControllerOptions {
     private final Optional<String> mqttHost;
     private final Optional<String> consoleHost;
     private final Optional<String> certSecret;
+    private final boolean useAcme;
 
-    private ControllerOptions(String masterUrl, boolean isMultiinstance, String namespace, String token, File templateDir, Optional<String> messagingHost, Optional<String> mqttHost, Optional<String> consoleHost, Optional<String> certSecret) {
+    private ControllerOptions(String masterUrl, boolean isMultiinstance, String namespace, String token, File templateDir, Optional<String> messagingHost, Optional<String> mqttHost, Optional<String> consoleHost, Optional<String> certSecret, boolean useAcme) {
         this.masterUrl = masterUrl;
         this.isMultiinstance = isMultiinstance;
         this.namespace = namespace;
@@ -44,6 +45,7 @@ public final class ControllerOptions {
         this.mqttHost = mqttHost;
         this.consoleHost = consoleHost;
         this.certSecret = certSecret;
+        this.useAcme = useAcme;
     }
 
     public String masterUrl() {
@@ -81,7 +83,9 @@ public final class ControllerOptions {
         Optional<String> consoleHost = getEnv(env, "INSTANCE_CONSOLE_HOST");
         Optional<String> certSecret = getEnv(env, "INSTANCE_CERT_SECRET");
 
-        return new ControllerOptions(String.format("https://%s:%s", masterHost, masterPort), isMultiinstance, namespace, token, templateDir, messagingHost, mqttHost, consoleHost, certSecret);
+        boolean useAcme = getEnv(env, "USE_ACME_CONTROLLER").map(Boolean::parseBoolean).orElse(false);
+
+        return new ControllerOptions(String.format("https://%s:%s", masterHost, masterPort), isMultiinstance, namespace, token, templateDir, messagingHost, mqttHost, consoleHost, certSecret, useAcme);
     }
 
     private static Optional<String> getEnv(Map<String, String> env, String envVar) {
@@ -137,5 +141,9 @@ public final class ControllerOptions {
 
     public Optional<String> certSecret() {
         return certSecret;
+    }
+
+    public boolean useAme() {
+        return useAcme;
     }
 }

@@ -8,6 +8,8 @@ dependencies {
     compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     compile "org.jboss.resteasy:resteasy-jackson2-provider:${resteasyVersion}"
     compile "org.jboss.resteasy:resteasy-vertx:${resteasyVersion}"
+    compile "org.shredzone.acme4j:acme4j-client:${acme4jVersion}"
+    compile "org.shredzone.acme4j:acme4j-utils:${acme4jVersion}"
     testCompile "junit:junit:${junitVersion}"
     testCompile "org.mockito:mockito-core:${mockitoVersion}"
 }
