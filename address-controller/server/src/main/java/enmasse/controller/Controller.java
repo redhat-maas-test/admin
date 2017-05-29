@@ -89,7 +89,6 @@ public class Controller extends AbstractVerticle {
     public static void main(String args[]) {
         try {
             Vertx vertx = Vertx.vertx();
-            System.exit(1);
             vertx.deployVerticle(new Controller(ControllerOptions.fromEnv(System.getenv())));
         } catch (IllegalArgumentException e) {
             System.out.println(String.format("Unable to parse arguments: %s", e.getMessage()));
