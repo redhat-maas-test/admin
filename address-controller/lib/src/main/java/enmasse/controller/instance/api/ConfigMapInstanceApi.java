@@ -55,6 +55,22 @@ public class ConfigMapInstanceApi implements InstanceApi {
     }
 
     public void createOrReplace(Instance instance) {
+        // TODO: Workaround for k8s ingress when instance has no host set
+        if (!client.isAdaptable(OpenShiftClient.class)) {
+            Instance.Builder builder = new Instance.Builder(instance);
+            String suffix = instance.id().getNamespace() + ".svc.cluster.local";
+            if (!instance.consoleHost().isPresent()) {
+                builder.consoleHost(Optional.of("console." + suffix));
+            }
+            if (!instance.messagingHost().isPresent()) {
+                builder.messagingHost(Optional.of("messaging." + suffix));
+            }
+            if (!instance.mqttHost().isPresent()) {
+                builder.mqttHost(Optional.of("mqtt." + suffix));
+            }
+            instance = builder.build();
+        }
+
         String name = Kubernetes.sanitizeName("instance-config-" + instance.id().getId());
         client.configMaps().createOrReplaceWithNew()
                 .withNewMetadata()
