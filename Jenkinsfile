@@ -7,7 +7,10 @@ node {
     stage ('docker images') {
         sh 'make'
     }
+    environment {
+        SCRIPTS = https://raw.githubusercontent.com/EnMasseProject/travis-scripts/master
+    }
     stage('system tests') {
-        sh 'echo Hello'
+        sh 'curl -s ${SCRIPTS}/setup-tests.sh' 
     }
 }
