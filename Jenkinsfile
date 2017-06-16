@@ -11,6 +11,6 @@ node {
         SCRIPTS = https://raw.githubusercontent.com/EnMasseProject/travis-scripts/master
     }
     stage('system tests') {
-        sh 'curl -s ${SCRIPTS}/setup-tests.sh' 
+        sh 'curl -s ${SCRIPTS}/setup-tests.sh | bash /dev/stdin' 
     }
 }
