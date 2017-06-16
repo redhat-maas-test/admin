@@ -1,4 +1,4 @@
-SUBDIRS=configserv queue-scheduler address-controller/server
+SUBDIRS=configserv queue-scheduler address-controller
 
 all: $(SUBDIRS)
 
