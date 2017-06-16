@@ -8,7 +8,7 @@ dogen:
 cmd:
     - "/opt/queue-scheduler/bin/launch.sh"
 sources:
-   - artifact: build/distributions/queue-scheduler.tgz
+   - artifact: queue-scheduler.tgz
            
 scripts:
     - package: queue-scheduler

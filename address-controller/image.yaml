@@ -12,7 +12,7 @@ packages:
     - openssl
 
 sources:
-    - artifact: server/build/distributions/server.tgz
+    - artifact: server.tgz
 
 scripts:
     - package: address-controller

@@ -8,7 +8,7 @@ dogen:
 cmd:
     - "/opt/configserv/bin/launch.sh"
 sources:
-    - artifact: build/distributions/configserv.tgz
+    - artifact: configserv.tgz
            
 scripts:
     - package: configserv
