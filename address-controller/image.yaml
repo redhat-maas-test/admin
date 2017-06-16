@@ -1,0 +1,25 @@
+version: 1.0
+name: jboss-amqmaas-1-tech-preview/amqmaas10-addresscontroller-openshift
+from: jboss/openjdk18-rhel7:1.0
+user: 185
+dogen:
+    version: "2.0.1"
+    ssl_verify: false
+cmd:
+    - "/opt/server/bin/launch.sh"
+
+packages: 
+    - openssl
+
+sources:
+    - artifact: server/build/distributions/server.tgz
+
+scripts:
+    - package: address-controller
+      exec: install
+    - package: dynamic-resources
+      exec: install
+            
+ports:
+    - value: 5672
+    - value: 8080
