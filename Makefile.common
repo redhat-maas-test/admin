@@ -6,7 +6,7 @@ DOGEN_VERSION?=2.0.1
 ARTIFACT_DIR=${CURDIR}/build/distributions
 DOCKER_BUILD_OPTS?=""
 DOCKER?=docker
-TMPDIR=$(shell mktemp)
+TMPDIR=$(shell mktemp -d)
 
 all:
 	echo "Running docker build $(REPO), artifacts in ${ARTIFACT_DIR}"
