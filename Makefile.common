@@ -6,13 +6,15 @@ DOGEN_VERSION?=2.0.1
 ARTIFACT_DIR=${CURDIR}/build/distributions
 DOCKER_BUILD_OPTS?=""
 DOCKER?=docker
+TMPDIR=$(shell mktemp)
 
 build:
 	echo "Running docker build $(REPO), artifacts in ${ARTIFACT_DIR}"
-	mkdir -p build/
-	cp -r ${ARTIFACT_DIR}/* ${CURDIR}/build/
-	$(DOCKER) run -i --rm -v ${CURDIR}:/tmp/output:z -v ${CURDIR}/../scripts:/tmp/scripts:z -v /etc/yum.repos.d/rhel-base-os.repo:/tmp/repos/rhel-base-os.repo:z jboss/dogen:$(DOGEN_VERSION) --verbos /tmp/output/$(IMAGE_FILE) --repo-files-dir /tmp/repos --scripts /tmp/scripts /tmp/output/build
-	$(DOCKER) build $(DOCKER_BUILD_OPTS) -t $(REPO):$(COMMIT) build
+	mkdir -p ${TMPDIR}/build
+	cp -r ${ARTIFACT_DIR}/* ${TMPDIR}/build/
+	$(DOCKER) run -i --rm -v ${TMPDIR}:/tmp/output:z -v ${CURDIR}/../scripts:/tmp/scripts:z -v /etc/yum.repos.d/rhel-base-os.repo:/tmp/repos/rhel-base-os.repo:z jboss/dogen:$(DOGEN_VERSION) --verbos /tmp/output/$(IMAGE_FILE) --repo-files-dir /tmp/repos --scripts /tmp/scripts /tmp/output/build
+	$(DOCKER) build $(DOCKER_BUILD_OPTS) -t $(REPO):$(COMMIT) ${TMPDIR}/build
+	rm -rf ${TMPDIR}
 
 push:
 	$(DOCKER) tag $(REPO):$(COMMIT) $(DOCKER_REGISTRY)/$(REPO):$(COMMIT)
