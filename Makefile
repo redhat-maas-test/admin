@@ -1,21 +1,21 @@
 SUBDIRS=configserv queue-scheduler address-controller
 
-build:
+buildall:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir build; \
 	done
 
-push:
+pushall:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir push; \
 	done
 
-snapshot:
+snapshotall:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir snapshot; \
 	done
 
-clean:
+cleanall:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir clean; \
 	done
