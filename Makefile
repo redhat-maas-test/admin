@@ -20,4 +20,4 @@ cleanall:
 		$(MAKE) -C $$dir clean; \
 	done
 
-.PHONY: build push snapshot clean
+.PHONY: all build push snapshot clean
