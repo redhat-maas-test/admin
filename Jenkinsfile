@@ -1,6 +1,4 @@
 node {
-    deleteDir()
-    sh 'sudo make cleanall'
     checkout scm
     sh 'git submodule update --init' 
     stage ('build') {
