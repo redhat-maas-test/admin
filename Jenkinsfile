@@ -1,4 +1,5 @@
 node {
+    sh 'sudo make clean'
     checkout scm
     sh 'git submodule update --init' 
     stage ('build') {
