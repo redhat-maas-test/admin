@@ -8,7 +8,7 @@ DOCKER_BUILD_OPTS?=""
 DOCKER?=docker
 TMPDIR=$(shell mktemp)
 
-build:
+all:
 	echo "Running docker build $(REPO), artifacts in ${ARTIFACT_DIR}"
 	mkdir -p ${TMPDIR}/build
 	cp -r ${ARTIFACT_DIR}/* ${TMPDIR}/build/

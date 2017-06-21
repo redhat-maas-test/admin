@@ -1,8 +1,8 @@
 SUBDIRS=configserv queue-scheduler address-controller
 
-buildall:
+all:
 	for dir in $(SUBDIRS); do \
-		$(MAKE) -C $$dir build; \
+		$(MAKE) -C $$dir; \
 	done
 
 pushall:
