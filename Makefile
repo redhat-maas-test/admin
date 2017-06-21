@@ -1,7 +1,5 @@
 SUBDIRS=configserv queue-scheduler address-controller
 
-all: $(SUBDIRS)
-
 build:
 	for dir in $(SUBDIRS); do \
 		$(MAKE) -C $$dir build; \
@@ -17,10 +15,9 @@ snapshot:
 		$(MAKE) -C $$dir snapshot; \
 	done
 
-clean: $(SUBDIRS) 
-	$(MAKE) -C $@ clean
+clean:
+	for dir in $(SUBDIRS); do \
+		$(MAKE) -C $$dir clean; \
+	done
 
-$(SUBDIRS):
-	$(MAKE) -C $@ $(MAKECMDGOALS)
-
-.PHONY: all $(SUBDIRS)
+.PHONY: build push snapshot clean
