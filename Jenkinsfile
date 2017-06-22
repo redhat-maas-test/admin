@@ -3,7 +3,7 @@ node {
     sh 'git submodule update --init' 
     stage ('build') {
         sh 'gradle clean check -i'
-        junit '**/build/test-results/TEST-*.xml'
+        junit '**/build/test-results/test/TEST-*.xml'
     }
     stage ('docker image') {
         sh 'make TMPDIR=`mktemp -d`'
