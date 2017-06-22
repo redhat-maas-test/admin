@@ -2,7 +2,7 @@ node {
     checkout scm
     sh 'git submodule update --init' 
     stage ('build') {
-        sh 'gradle clean check -i'
+        sh 'gradle check build'
         junit '**/build/test-results/test/TEST-*.xml'
     }
     stage ('docker image') {
