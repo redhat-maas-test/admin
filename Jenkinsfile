@@ -19,7 +19,7 @@ node {
             withEnv(['SCRIPTS=https://raw.githubusercontent.com/EnMasseProject/travis-scripts/master']) {
                 sh 'rm -rf systemtests && git clone https://github.com/EnMasseProject/systemtests.git'
                 sh 'rm -rf enmasse && git clone https://github.com/redhat-maas-test/enmasse.git'
-                sh 'export OPENSHIFT_PROJECT=`echo $JOB_NAME | tr / -`; curl -s ${SCRIPTS}/run-tests.sh | bash /dev/stdin "" enmasse/install jboss-amqmaas-1-tech-preview/amqmaas10-addresscontroller-openshift jboss-amqmaas-1-tech-preview/amqmaas10-configserv-openshift jboss-amqmaas-1-tech-preview/amqmaas10-queuescheduler-openshift'
+                sh 'export OPENSHIFT_PROJECT=$BUILD_TAG; curl -s ${SCRIPTS}/run-tests.sh | bash /dev/stdin "" enmasse/install jboss-amqmaas-1-tech-preview/amqmaas10-addresscontroller-openshift jboss-amqmaas-1-tech-preview/amqmaas10-configserv-openshift jboss-amqmaas-1-tech-preview/amqmaas10-queuescheduler-openshift'
                 junit 'systemtests/target/surefire-reports/TEST-*.xml'
             }
         }
