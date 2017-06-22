@@ -27,5 +27,4 @@ node {
     stage('docker snapshot') {
         sh 'make snapshotall'
     }
-    deleteDir()
 }
