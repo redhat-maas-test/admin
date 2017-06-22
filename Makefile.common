@@ -9,7 +9,7 @@ DOCKER?=docker
 all:
 	echo "Running docker build $(REPO), artifacts in ${ARTIFACT_DIR}"
 	cp -r $(ARTIFACT_DIR)/* $(CURDIR)/build/
-	dogen --repo-files-dir $(REPO_DIR) --scripts $(CURDIR)/../scripts --verbose $(IMAGE_FILE) build
+	dogen --repo-files-dir $(YUM_REPO_DIR) --scripts $(CURDIR)/../scripts --verbose $(IMAGE_FILE) build
 	$(DOCKER) build $(DOCKER_BUILD_OPTS) -t $(REPO):$(COMMIT) $(CURDIR)/build
 
 push:
